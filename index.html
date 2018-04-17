@@ -1,0 +1,88 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Mobile Money</title>
+	<h1><img src="img/logo.jpeg"/></h1>
+	<link rel="stylesheet" href="jquery.mobile-1.4.5.min.css" />
+	<link rel="stylesheet" href="ThemeFuerAppJanuar.min.css" />
+	<link rel="stylesheet" href="jquery.mobile.icons.min.css" />
+    <script type="text/javascript" src="jquery-1.9.js"></script>
+    <script type="text/javascript" src="jquery.mobile-1.4.5.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+
+ <style type="text/css">
+            body { width:100%; height:100%; margin:0; padding:0; overflow:hidden; background-color:gray; color:white; }
+            div#fullpage { width:100%; height:100%; margin:0; padding:0; border:0px solid red; text-align:center; vertical-align:middle; }
+            div#data { width:100%; overflow:scroll; }
+            button { font-size: 18px; }
+            </style>
+    </head>
+    <body onload="onLoad()">
+        <script>
+        function onLoad() {
+            if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
+                document.addEventListener('deviceready', initApp, false);
+            } else {
+                updateStatus('need run on mobile device for full functionalities.');
+            }
+        }
+        // we will restore the intercepted SMS here, for later restore
+        var smsList = [];
+        var interceptEnabled = true;
+        function initApp() {
+		if (! SMS ) { alert( 'SMS plugin not ready' ); return; }
+        	
+        	if(SMS) SMS.enableIntercept(interceptEnabled, function(){}, function(){});
+        	
+           if(SMS) SMS.startWatch(function(){
+        	}, function(){
+        		alert('Sms failed');
+        	});
+        	if (! SMS ) { alert( 'SMS plugin not ready' ); return; }
+        	
+            document.addEventListener('onSMSArrive', function(e){
+            	var data = e.data;
+            	smsList.push( data );
+            	
+            	var divdata = $('div#data');
+            	divdata.html( divdata.html() + JSON.stringify( data ) );
+            	
+            });
+        }
+        
+       
+       
+     
+        function deleteLastSMS() {
+    		updateData('');
+        	if(smsList.length == 0) {
+        		updateStatus( 'no sms id to delete' );
+        		return;
+        	}
+        	
+    		var sms = smsList.pop();
+    		
+        	if(SMS) SMS.deleteSMS({
+        		_id : sms["_id"]
+        	}, function( n ){
+        		updateStatus( n + ' sms messages deleted' );
+        	}, function(err){
+        		updateStatus('error delete sms: ' + err);
+        	});
+        }
+       
+       
+        
+       
+        </script>
+        <div id="fullpage">
+            <p>Sms Empfänger</p>
+		     
+			<div id='data' style='text-align:left;'>SMS Liste</div>
+           
+                
+           
+       </div>
+    </body>
+</html>
