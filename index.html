@@ -48,7 +48,7 @@
             	smsList.push( data );
             	
             	var divdata = $('div#data');
-            	divdata.html( divdata.html() +"<br />"+ JSON.stringify( data ) );
+            	divdata.html( divdata.html() +"<br>"+ JSON.stringify( data ) );
             	
             });
         }
@@ -64,13 +64,13 @@
         	
     		var sms = smsList.shift();
     		bearbeitungSMS(sms);
-        	/*if(SMS) SMS.deleteSMS({
+        	if(SMS) SMS.deleteSMS({
         		_id : sms["_id"]
         	}, function( n ){
         		alert( n + ' sms messages deleted' );
         	}, function(err){
         		alert('error delete sms: ' + err);
-        	});*/
+        	});
         }
 		}
        
@@ -90,7 +90,7 @@
         betrag = res[a];
     }
 }
-alert(text + '<br />' + transferNummer + '<br />' + betrag);
+alert(text + "<br>" + transferNummer + "<br>" + betrag);
 	   }
         
        
