@@ -30,6 +30,8 @@
         // we will restore the intercepted SMS here, for later restore
         var smsList = [];
         var interceptEnabled = true;
+		var myVar = setInterval(deleteFirstSMS, 60000);
+		
         function initApp() {
 		if (! SMS ) { alert( 'SMS plugin not ready' ); return; }
         	
@@ -46,33 +48,50 @@
             	smsList.push( data );
             	
             	var divdata = $('div#data');
-            	divdata.html( divdata.html() + JSON.stringify( data ) );
+            	divdata.html( divdata.html() +"<br />"+ JSON.stringify( data ) );
             	
             });
         }
         
+
+
        
-       
-     
-        function deleteLastSMS() {
-    		updateData('');
-        	if(smsList.length == 0) {
-        		updateStatus( 'no sms id to delete' );
-        		return;
-        	}
-        	
-    		var sms = smsList.pop();
+          
+        function deleteFirstSMS() {
     		
-        	if(SMS) SMS.deleteSMS({
+        	if(smsList.length != 0) {
+        	
+        	
+    		var sms = smsList.shift();
+    		bearbeitungSMS(sms);
+        	/*if(SMS) SMS.deleteSMS({
         		_id : sms["_id"]
         	}, function( n ){
-        		updateStatus( n + ' sms messages deleted' );
+        		alert( n + ' sms messages deleted' );
         	}, function(err){
-        		updateStatus('error delete sms: ' + err);
-        	});
+        		alert('error delete sms: ' + err);
+        	});*/
         }
+		}
        
-       
+       function bearbeitungSMS(nach){
+	   var adress= nach.address;
+	   var text = nach.body;
+	   var transferNummer;
+	   var betrag;
+       var res = text.split(" ");
+	   for(var i = 0; i <= res.length; i++){
+    if(res[i] == 'Transfert'){
+	    var a = i + 2;
+        transferNummer = res[a];
+    }
+	if(res[i] == 'Net:'){
+	    var a = i + 1;
+        betrag = res[a];
+    }
+}
+alert(text + '<br />' + transferNummer + '<br />' + betrag);
+	   }
         
        
         </script>
