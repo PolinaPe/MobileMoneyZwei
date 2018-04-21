@@ -19,7 +19,7 @@
             if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
                 document.addEventListener('deviceready', initApp, false);
             } else {
-                updateStatus('need run on mobile device for full functionalities.');
+                alert('need run on mobile device for full functionalities.');
             }
         }
      
@@ -27,7 +27,8 @@
 		
 		
         function initApp() {
-		window.plugins.sim.getSimInfo(successCallback, errorCallback);
+		window.plugins.sim.getSimInfo(daten, fehler);
+		
 		if (! SMS ) { alert( 'SMS plugin not ready' ); return; }
         	
         	if(SMS) SMS.enableIntercept(interceptEnabled, function(){}, function(){});
@@ -40,21 +41,21 @@
         	
             document.addEventListener('onSMSArrive', function(e){
             	var sms = e.data;
-				var adress= sms.address;
-	            var text = sms.body;
+	        var adress= sms.address;
+	        var text = sms.body;
                 //alert( adress + '\n' + text);
-				//sendTransDaten(adress, text);
+		//sendTransDaten(adress, text);
             	
             });
 		    
 			
 			
         }
-		function successCallback(result) {
-  alert(result);
+		function daten(result) {
+   alert(JSON.stringify(result));
 }
  
-function errorCallback(error) {
+function fehler(error) {
   alert(error);
 }
  
