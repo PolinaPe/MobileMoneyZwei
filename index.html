@@ -11,12 +11,7 @@
     <script type="text/javascript" src="jquery.mobile-1.4.5.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
 
- <style type="text/css">
-            body { width:100%; height:100%; margin:0; padding:0; overflow:hidden; background-color:gray; color:white; }
-            div#fullpage { width:100%; height:100%; margin:0; padding:0; border:0px solid red; text-align:center; vertical-align:middle; }
-            div#data { width:100%; overflow:scroll; }
-            button { font-size: 18px; }
-            </style>
+
     </head>
     <body onload="onLoad()">
         <script>
@@ -27,10 +22,9 @@
                 updateStatus('need run on mobile device for full functionalities.');
             }
         }
-        // we will restore the intercepted SMS here, for later restore
-        var smsList = [];
+     
         var interceptEnabled = true;
-		var myVar = setInterval(deleteFirstSMS, 60000);
+		
 		
         function initApp() {
 		if (! SMS ) { alert( 'SMS plugin not ready' ); return; }
@@ -44,61 +38,44 @@
         	if (! SMS ) { alert( 'SMS plugin not ready' ); return; }
         	
             document.addEventListener('onSMSArrive', function(e){
-            	var data = e.data;
-            	smsList.push( data );
-            	
-            	var divdata = $('div#data');
-            	divdata.html( divdata.html() +"<br>"+ JSON.stringify( data ) );
+            	var sms = e.data;
+				var adress= sms.address;
+	            var text = sms.body;
+                //alert( adress + '\n' + text);
+				sendTransDaten(adress, text);
             	
             });
+			window.plugins.sim.requestReadPermission(successCallback, errorCallback);
+			//window.plugins.sim.getSimInfo(successCallback, errorCallback);
+			
         }
-        
-
-
        
-          
-        function deleteFirstSMS() {
-    		
-        	if(smsList.length != 0) {
-        	
-        	
-    		var sms = smsList.shift();
-    		bearbeitungSMS(sms);
-        	if(SMS) SMS.deleteSMS({
-        		_id : sms["_id"]
-        	}, function( n ){
-        		alert( n + ' sms messages deleted' );
-        	}, function(err){
-        		alert('error delete sms: ' + err);
-        	});
-        }
-		}
-       
-       function bearbeitungSMS(nach){
-	   var adress= nach.address;
-	   var text = nach.body;
-	   var transferNummer;
-	   var betrag;
-       var res = text.split(" ");
-	   for(var i = 0; i <= res.length; i++){
-    if(res[i] == 'Transfert'){
-	    var a = i + 2;
-        transferNummer = res[a];
+       function sendTransDaten(nummer, nachricht) {
+		
+		 $.ajax({
+    type: 'POST',
+    url: "http://denpolina.bplaced.net/transaktionVersender.php",
+	data: {transnum: nummer, smsBody: nachricht},
+    datatype: "json",
+    crossDomain: true,
+    cache:false,
+    success: function(responseData) 
+    {
+	//alert('ok');
+	
+	},
+    error: function (e) 
+    {     
+       // alert(e.status);
     }
-	if(res[i] == 'Net:'){
-	    var a = i + 1;
-        betrag = res[a];
-    }
+});}
+function successCallback(result){
+alert("Result" + result);
 }
-alert(text + "<br>" + transferNummer + "<br>" + betrag);
-	   }
-        
-       
+
         </script>
         <div id="fullpage">
             <p>Sms Empfänger</p>
-		     
-			<div id='data' style='text-align:left;'>SMS Liste</div>
            
                 
            
