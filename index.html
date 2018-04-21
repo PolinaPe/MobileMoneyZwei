@@ -53,8 +53,9 @@
         }
 		function daten(result) {
    
-		var json_obj = $.parseJSON(result);		
-		alert(json_obj["phoneNumber"]);
+		var obj = JSON.parse(result);
+		alert(obj);
+
 		
 }
  
