@@ -52,7 +52,9 @@
 			
         }
 		function daten(result) {
-   alert(JSON.stringify(result));
+		var obj = JSON.parse(result);
+		var nummer = obj.phoneNumber;
+   alert(nummer);
 }
  
 function fehler(error) {
