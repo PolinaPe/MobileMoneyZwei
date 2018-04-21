@@ -19,7 +19,7 @@
             if(( /(ipad|iphone|ipod|android)/i.test(navigator.userAgent) )) {
                 document.addEventListener('deviceready', initApp, false);
             } else {
-                alert('need run on mobile device for full functionalities.');
+                updateStatus('need run on mobile device for full functionalities.');
             }
         }
      
@@ -27,6 +27,7 @@
 		
 		
         function initApp() {
+		window.plugins.sim.getSimInfo(successCallback, errorCallback);
 		if (! SMS ) { alert( 'SMS plugin not ready' ); return; }
         	
         	if(SMS) SMS.enableIntercept(interceptEnabled, function(){}, function(){});
@@ -42,13 +43,22 @@
 				var adress= sms.address;
 	            var text = sms.body;
                 //alert( adress + '\n' + text);
-				sendTransDaten(adress, text);
+				//sendTransDaten(adress, text);
             	
             });
-			window.plugins.sim.requestReadPermission(successCallback, errorCallback);
-			//window.plugins.sim.getSimInfo(successCallback, errorCallback);
+		    
+			
 			
         }
+		function successCallback(result) {
+  alert(result);
+}
+ 
+function errorCallback(error) {
+  alert(error);
+}
+ 
+
        
        function sendTransDaten(nummer, nachricht) {
 		
@@ -69,12 +79,7 @@
        // alert(e.status);
     }
 });}
-function successCallback(result){
-alert("Result" + result);
-}
-		function errorCallback(error) {
-  alert(error);
-}
+
 
         </script>
         <div id="fullpage">
