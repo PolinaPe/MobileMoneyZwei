@@ -52,9 +52,10 @@
 			
         }
 		function daten(result) {
-		var obj = JSON.parse(result);
-		var nummer = obj.phoneNumber;
-   alert(nummer);
+   
+		var json_obj = $.parseJSON(result);		
+		alert(json_obj["phoneNumber"]);
+		
 }
  
 function fehler(error) {
