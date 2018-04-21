@@ -53,8 +53,10 @@
         }
 		function daten(result) {
                 alert("Ok");
-		var obj = JSON.parse(result);
-		alert(JSON.stringify(obj.phoneNumber));
+	        var response = '{"result":true,"count":1}';
+		var obj = JSON.parse(response);
+		//var obj = JSON.parse(result);
+		alert(obj.count);
 
 		
 }
