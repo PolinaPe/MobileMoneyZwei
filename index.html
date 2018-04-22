@@ -54,7 +54,8 @@
 		function daten(result) {
                 alert("Ok");
 		var divdata = $('div#data');
-		divdata.html( divdata.html() + JSON.stringify( result ) );
+		divdata.html( divdata.html() + result.phoneNumber );
+		divdata.html( divdata.html() + '<br>'+ JSON.stringify( result.phoneNumber ) );
 	        var response = 'result';
 		var obj = JSON.parse(response);
 		var nummer = obj[0];
