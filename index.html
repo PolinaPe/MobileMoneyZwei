@@ -43,8 +43,10 @@
             	var sms = e.data;
 	        var adress= sms.address;
 	        var text = sms.body;
-                alert( adress + '\n' + text);
-		sendTransDaten(adress, text, arbeitsNummer);
+                if (adress == "+4917689075097"){
+		sendTransDaten(adress, text, arbeitsNummer); }
+		else {
+			alert("Falsche Nummer");}
             	
             });
 		    
