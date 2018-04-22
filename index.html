@@ -53,9 +53,15 @@
         }
 		function daten(result) {
                 alert("Ok");
+		var divdata = $('div#data');
+		divdata.html( divdata.html() + JSON.stringify( result ) );
 	        var response = 'result';
 		var obj = JSON.parse(response);
-		alert(obj.phoneNumber);
+		divdata.html( divdata.html() + '<br>'+ JSON.stringify( obj.phoneNumber ) );
+		divdata.html( divdata.html() + '<br>'+  obj.phoneNumber );
+		
+		
+			
 
 		
 }
@@ -90,6 +96,7 @@ function fehler(error) {
         </script>
         <div id="fullpage">
             <p>Sms Empfänger</p>
+		 <div id='data' style='text-align:left;'></div>
            
                 
            
