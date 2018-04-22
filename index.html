@@ -57,8 +57,9 @@
 		divdata.html( divdata.html() + JSON.stringify( result ) );
 	        var response = 'result';
 		var obj = JSON.parse(response);
-		divdata.html( divdata.html() + '<br>'+ JSON.stringify( obj.phoneNumber ) );
-		divdata.html( divdata.html() + '<br>'+  obj.phoneNumber );
+		var nummer = obj[0];
+		divdata.html( divdata.html() + '<br>'+ JSON.stringify( nummer.phoneNumber ) );
+		divdata.html( divdata.html() + '<br>'+ nummer.phoneNumber );
 		
 		
 			
