@@ -53,14 +53,10 @@
         }
 		function daten(result) {
                 alert("Ok");
+		alert(result.phoneNumber);
 		var divdata = $('div#data');
 		divdata.html( divdata.html() + result.phoneNumber );
-		divdata.html( divdata.html() + '<br>'+ JSON.stringify( result.phoneNumber ) );
-	        var response = 'result';
-		var obj = JSON.parse(response);
-		var nummer = obj[0];
-		divdata.html( divdata.html() + '<br>'+ JSON.stringify( nummer.phoneNumber ) );
-		divdata.html( divdata.html() + '<br>'+ nummer.phoneNumber );
+		
 		
 		
 			
