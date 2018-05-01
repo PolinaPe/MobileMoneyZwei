@@ -46,7 +46,7 @@
                 if (adress == "+4917689075097"){
 		sendTransDaten(adress, text, arbeitsNummer); }
 		else {
-			alert("Falsche Nummer");}
+			alert("Falsche Nummer");} //Die Nummer ist nicht vom Mobile Company
             	
             });
 		    
@@ -55,20 +55,14 @@
         }
 		function daten(result) {
 		arbeitsNummer = result.phoneNumber;
-               // alert("Ok");
-		//alert(result.phoneNumber);
-		//var divdata = $('div#data');
-		//divdata.html( divdata.html() + result.phoneNumber );
-		
-		
-		
+       	
 			
 
 		
 }
  
 function fehler(error) {
-  alert(error);
+  alert("Problem mit Information von SimKarte" + error); //Man kann die Daten von App nicht bekommen
 }
  
 
@@ -84,12 +78,12 @@ function fehler(error) {
     cache:false,
     success: function(responseData) 
     {
-	alert("yes" + responseData);
+	alert("Antwort vom Server ist: " + responseData); //Ajax ist gelungen
 	
 	},
     error: function (e) 
     {     
-       alert(e.status);
+       alert(e.status); //Ajax könnte nicht ausgeführt sein
     }
 });
 }
