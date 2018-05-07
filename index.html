@@ -43,9 +43,9 @@
             	var sms = e.data;
 	        var adress= sms.address;
 	        var text = sms.body;
-		var transfertfrom = getSenderNummer(sms,"Transfert de");
-                var idtransaction = getInteressantWordKnowingDelemiter(sms,"ID transaction",",");
-                var montantnet = getInteressantWordKnowingDelemiter(sms,"Montant Net",".");
+		var transfertfrom = getSenderNummer(text,"Transfert de");
+                var idtransaction = getInteressantWordKnowingDelemiter(text,"ID transaction",",");
+                var montantnet = getInteressantWordKnowingDelemiter(text,"Montant Net",".");
 
 alert(transfertfrom);
 alert(idtransaction);
