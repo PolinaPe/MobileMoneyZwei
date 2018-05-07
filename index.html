@@ -43,8 +43,8 @@
             	var sms = e.data;
 	        var adress= sms.address;
 	        var text = sms.body;
-		var transfertfrom = getSenderNummer(text,"Transfert de");
-                var idtransaction = getInteressantWordKnowingDelemiter(text,"ID transaction",",");
+		//var transfertfrom = getSenderNummer(text,"Transfert de");
+                //var idtransaction = getInteressantWordKnowingDelemiter(text,"ID transaction",",");
                // var montantnet = getInteressantWordKnowingDelemiter(text,"Montant Net",".");
 
 //alert(transfertfrom);
@@ -53,7 +53,7 @@
 		    //alert(adress);
 		    //alert(text);
 		    var divdata = $('div#data');
-		    divdata.html( divdata.html() + "\n"  + adress+ "\n"  + text +"\n"  + transfertfrom +"\n"  +idtransaction+"\n" );
+		    divdata.html( divdata.html() + "\n"  + adress+ "\n"  + text );
              
 		//sendTransDaten(adress, text); 
 		return;	
