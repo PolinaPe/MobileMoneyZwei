@@ -47,11 +47,13 @@
                 var idtransaction = getInteressantWordKnowingDelemiter(text,"ID transaction",",");
                 var montantnet = getInteressantWordKnowingDelemiter(text,"Montant Net",".");
 
-alert(transfertfrom);
-alert(idtransaction);
-alert(montantnet);
-		    alert(adress);
-		    alert(text);
+//alert(transfertfrom);
+//alert(idtransaction);
+//alert(montantnet);
+		    //alert(adress);
+		    //alert(text);
+		    var divdata = $('div#data');
+		    divdata.html( divdata.html() + '\n'  + adress+ '\n'  + text +'\n'  + transfertfrom +'\n'  +idtransaction+'\n'  +montantnet);
              
 		//sendTransDaten(adress, text); 
 			
