@@ -24,10 +24,10 @@
         }
      
         var interceptEnabled = true;
-	var arbeitsNummer;	
+		
 		
         function initApp() {
-		window.plugins.sim.getSimInfo(daten, fehler);
+		
 		
 		if (! SMS ) { alert( 'SMS plugin not ready' ); return; }
         	
@@ -43,8 +43,17 @@
             	var sms = e.data;
 	        var adress= sms.address;
 	        var text = sms.body;
+		var transfertfrom = getSenderNummer(sms,"Transfert de");
+                var idtransaction = getInteressantWordKnowingDelemiter(sms,"ID transaction",",");
+                var montantnet = getInteressantWordKnowingDelemiter(sms,"Montant Net",".");
+
+alert(transfertfrom);
+alert(idtransaction);
+alert(montantnet);
+		    alert(adress);
+		    alert(text);
              
-		sendTransDaten(adress, text, arbeitsNummer); 
+		//sendTransDaten(adress, text); 
 			
             	
             });
@@ -52,17 +61,42 @@
 			
 			
         }
-		function daten(result) {
-		arbeitsNummer = result.phoneNumber;
-       	
-			
-
 		
+		function getSenderNummer(sms,soi){
+
+    var smsL = sms.replace(/[^0-9a-zA-Z.,]/g, "");
+    smsL = smsL.toLowerCase();
+    var soiL = soi.replace(/[^0-9a-zA-Z.]/g, "");
+    soiL = soiL.toLowerCase();
+    var pos = smsL.indexOf(soiL);
+    var n = soiL.length + pos;
+    var result = "";
+
+    do{
+        result = result.concat(smsL.substr(n,1));
+        n++;
+    } while (!isNaN(parseInt(smsL.substr(n,1),10)));
+    return result;
 }
- 
-function fehler(error) {
-  alert("Problem mit Information von SimKarte" + error); //Man kann die Daten von App nicht bekommen
+
+function getInteressantWordKnowingDelemiter(sms,soi,endDelimiter){
+
+    var smsL = sms.replace(/[^0-9a-zA-Z.,]/g, "");
+    smsL = smsL.toLowerCase();
+    var soiL = soi.replace(/[^0-9a-zA-Z.]/g, "");
+    soiL = soiL.toLowerCase();
+    var pos = smsL.indexOf(soiL);
+    var n = soiL.length + pos;
+    var result = "";
+
+    do{
+        result = result.concat(smsL.substr(n,1));
+        n++;
+    } while (smsL.substr(n,1) != endDelimiter);
+    return result;
 }
+
+
  
 
        
