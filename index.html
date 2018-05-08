@@ -47,7 +47,7 @@
 		    //alert(adress);
 		    //alert(text);
 		    var divdata = $('div#data');
-		    divdata.html( divdata.html() + "\n"  + IncomingSMS.address+ "\n"  + IncomingSMS.body );
+		    divdata.html( divdata.html() + "\n"  + IncomingSMS.address+ "\n"  + JSON.stringify(IncomingSMS) );
              
 		//sendTransDaten(adress, text); 
 		
