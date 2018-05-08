@@ -23,26 +23,20 @@
             }
         }
      
-        var interceptEnabled = true;
 		
 		
         function initApp() {
 		
 		
-		if (! SMS ) { alert( 'SMS plugin not ready' ); return; }
-        	
-        	if(SMS) SMS.enableIntercept(interceptEnabled, function(){}, function(){});
-        	
-           if(SMS) SMS.startWatch(function(){
-        	}, function(){
-        		alert('Sms failed');
-        	});
-        	if (! SMS ) { alert( 'SMS plugin not ready' ); return; }
-        	
-            document.addEventListener('onSMSArrive', function(e){
-            	var sms = e.data;
-	        var adress= sms.address;
-	        var text = sms.body;
+		SMSReceive.startWatch(function() {
+	alert('smsreceive: watching started');
+}, function() {
+	alert('smsreceive: failed to start watching');
+});
+        	document.addEventListener('onSMSArrive', function(e) {
+            	var IncomingSMS = e.data;
+	alert('sms.address:' + IncomingSMS.address);
+	alert('sms.body:' + IncomingSMS.body);
 		//var transfertfrom = getSenderNummer(text,"Transfert de");
                 //var idtransaction = getInteressantWordKnowingDelemiter(text,"ID transaction",",");
                // var montantnet = getInteressantWordKnowingDelemiter(text,"Montant Net",".");
@@ -52,11 +46,11 @@
 //alert(montantnet);
 		    //alert(adress);
 		    //alert(text);
-		    var divdata = $('div#data');
-		    divdata.html( divdata.html() + "\n"  + adress+ "\n"  + text );
+		    //var divdata = $('div#data');
+		    //divdata.html( divdata.html() + "\n"  + adress+ "\n"  + text );
              
 		//sendTransDaten(adress, text); 
-		return;	
+		
             	
             });
 		    
